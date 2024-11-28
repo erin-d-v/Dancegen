@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dance Routine Generator</title>
+</head>
+
+
+<h1>Dance Routine Generator</h1>
+
+<title> background styleing </title>
+	<style>
+		 body {
+      font-family: "Pacifico", cursive;
+  font-weight: 400;
+  font-style: normal;
+      background-color: #e0fff;
+      color: #2c3e50;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+    }
+	h2{
+	text-align:center;
+	font-size:20px;
+	}
+   
+    	form{
+	 font-family: "Lobster Two", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+	}
+	video{
+	margin-left:75px;
+	width:300px;
+	height:550px;
+		pre{
+		 font-family: "Lobster Two", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+font-size: 100px;
+color:white;
+		}
+	</style>
+<title>Two Columns Example</title>
+  <style>
+    /* Styling starts here */
+    .container {
+      display: flex; /* This makes the content inside line up in a row */
+      gap: 20px; /* Adds space between the columns */
+    }
+
+    .form-column, .video-column, .button-box {
+      flex: 1; /* Each column takes up equal space */
+    }
+
+    .form-column {
+      background-color: #f0f8ff; /* Light blue background for the form */
+      padding: 20px; /* Adds space inside the box */
+    }    
+	.button-box{
+	background-color:#8fbc8f ; /* Light yellow background for the video */
+      padding: 20px; 
+	color:white;
+	font-size:25px;
+	}
+	.video-column {
+      background-color: #fff8dc; /* Light yellow background for the video */
+ 	padding: 20px;
+    }
+	
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Form goes here -->
+    <div class="form-column">
+      <h2>Generate Your Routine</h2>
+      <form>
+<form id="danceForm">
+    <label>Genre:</label><br>
+    <input type="radio" name="genre" value="a"> Hip-Hop<br>
+    <input type="radio" name="genre" value="b"> Jazz<br>
+    <input type="radio" name="genre" value="c"> Tik-Tok<br><br>
+
+    <label>Difficulty:</label><br>
+    <input type="radio" name="difficulty" value="1"> Easy<br>
+    <input type="radio" name="difficulty" value="2"> Medium<br>
+    <input type="radio" name="difficulty" value="3"> Hard<br><br>
+
+    <label>Number of Steps:</label><br>
+    <input type="number" id="steps" min="1"><br><br>
+ <button class="large-button" onclick="generateRoutine()">Generate Routine</button>
+      </form>
+    </div>
+ <div class="button-box">
+<h2>Generated Dance Routine:</h2>
+	 <pre id="output"></pre>
+	<button class="vid-button" onclick="playRoutine(sharedroutine)">Start Routine</button>
+	</div>
+    <!-- Video goes here -->
+    <div class="video-column">
+      <h2>Video</h2>
+      <video id="danceVideo" controls></video> <br>
+<script src="script.js"></script>
+          </video>
+    </div>
+  
+  </div>
+<title> Large Button Example </title>
+	<style>
+		.large-button{
+		width: 200px;
+		height:80px;
+		font-size:21px;
+		background-color:#090be4;
+		color:#fefefe;
+		}
+	</style>
+<title> vid button example </title>
+	<style>
+		.vid-button{
+		display: block;
+		margin:20px auto;
+		background-color:#014421;
+		color:#fefefe;
+		font-size:21px;
+		width: 200px;
+		height: 80px;
+		cursor: pointer
+		}
+	</style>
+		
+
+   
+
+ 
+<script>
+const sharedroutine = [];
+    function generateRoutine() {
+        // Collect user inputs
+        const genre = document.querySelector('input[name="genre"]:checked').value;
+        const difficulty = parseInt(document.querySelector('input[name="difficulty"]:checked').value);
+        const steps = parseInt(document.getElementById("steps").value);
+
+        // Define dance moves for each genre and difficulty
+        let easy, medium, hard;
+        if (genre === 'a') { // Hip-Hop
+            easy = ["running man", "walk-it out", "side step", "wave", "slide"];
+            medium = ["Two-Step", "Wave", "Heel-Toe", "Cabbage Patch", "The Running Man", "walk-it out", "side step","slide"];
+            hard = ["Headspin", "Windmill", "The Flare", "B-Boy Six Step", "Knee Spin","Two-Step", "Wave", "Heel-Toe", "Cabbage Patch", "The Running Man", "walk-it out", "side step", "slide"];
+        } else if (genre === 'b') { // Jazz
+            easy = ["Grapevine", "Ball Change", "Jazz Walk", "Pivot Turn", "Kick Ball Change"];
+            medium = ["Chassé", "Pirouette", "Chainé Turn", "Hitch Kick", "Box Step","Grapevine", "Ball Change", "Jazz Walk", "Pivot Turn", "Kick Ball Change"];
+            hard = ["Switch Leap", "Axel Turn", "Calypso Jump", "Tilt Jump", "Firebird Leap","Chassé", "Pirouette", "Chainé Turn", "Hitch Kick", "Box Step","Grapevine", "Ball Change", "Jazz Walk", "Pivot Turn", "Kick Ball Change"];}
+	else if(genre=== 'c'){//Tik-Tok
+		easy=["body roll", "step touch","wave"];
+		medium=["Sway","throw it back","dice roll","woah"];
+		hard=["Shuffle","wave","slide"];
+        } else {
+            document.getElementById("output").textContent = "Please select a valid genre.";
+            return;
+        }
+
+        // Select the appropriate move set based on difficulty
+        let moves;
+        if (difficulty === 1) {
+            moves = easy;
+        } else if (difficulty === 2) {
+            moves = medium;
+        } else if (difficulty === 3) {
+            moves = hard;
+        } else {
+            document.getElementById("output").textContent = "Please select a valid difficulty.";
+            return;
+        }
+
+        // Generate the dance routine
+        
+        let p = 0;
+        const random = Math.random;
+        for (let i = 0; i < steps; i++) {
+		sharedroutine[i] = moves[Math.floor(random() * moves.length)];
+            if (i >0 ) {
+                if (sharedroutine[i] === sharedroutine[i - 1]) {
+                    i--; // Retry this step with a new move
+                    p++;
+                    continue;
+                }		
+            }
+           
+        }
+
+  
+
+	event.preventDefault();
+          document.getElementById("output").textContent = sharedroutine.join("\n");
+
+               
+    }
+const videoElement = document.getElementById("danceVideo");
+const startButton = document.getElementById("startRoutine");
+
+function playRoutine(routine) {
+    let currentIndex = 0; // Start with the first video
+    function playNext() {
+        if (currentIndex < routine.length) {
+		const vloc= (routine[currentIndex].replace(" ","_"))+".mp4";
+            videoElement.src = `videos/${vloc}`; // Set the video source
+            videoElement.play(); // Play the video
+            currentIndex++; // Move to the next video
+
+            // Wait for the video to end before playing the next one
+            videoElement.onended = playNext;
+        } else {
+            console.log("Routine Complete!");
+        }
+    }
+
+    playNext(); // Start the routine
+}
+
+
+event.preventDefault();
+
+
+</script>
+
+</body>
+</html>
